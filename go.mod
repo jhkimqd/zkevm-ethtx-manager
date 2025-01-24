@@ -14,6 +14,8 @@ require (
 	go.uber.org/zap v1.27.0
 )
 
+replace github.com/0xPolygon/zkevm-ethtx-manager => github.com/jhkimqd/zkevm-ethtx-manager v0.2.1
+
 require (
 	github.com/DataDog/zstd v1.5.6 // indirect
 	github.com/Microsoft/go-winio v0.6.2 // indirect
