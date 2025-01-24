@@ -170,10 +170,17 @@ func (m HashMeddler) PostRead(fieldPtr, scanTarget interface{}) error {
 }
 
 // PreWrite is called before an Insert or Update operation for fields that have the HashMeddler
-func (m HashMeddler) PreWrite(fieldPtr interface{}) (saveValue interface{}, err error) {
+func (b HashMeddler) PreWrite(fieldPtr interface{}) (saveValue interface{}, err error) {
 	field, ok := fieldPtr.(common.Hash)
 	if !ok {
-		return nil, errors.New("fieldPtr is not common.Hash")
+		hashPtr, ok := fieldPtr.(*common.Hash)
+		if !ok {
+			return nil, errors.New("fieldPtr is not common.Hash")
+		}
+		if hashPtr == nil {
+			return []byte{}, nil
+		}
+		return hashPtr.Hex(), nil
 	}
 	return field.Hex(), nil
 }
